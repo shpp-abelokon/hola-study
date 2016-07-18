@@ -17,15 +17,17 @@ var logRequest = function(msg, info) {
 
 var server = dgram.createSocket('udp4');
 
+server.on('message', function(msg, info) {
+    server.send(msg, 0, msg.length, info.port, info.address);
+    logRequest(msg, info);
+});
+
 server.on('listening', function() {
     console.log('Server started listening...');
 });
 server.on('error', function(err) {
     console.log('server error:\n' + err.stack);
     server.close();
-});
-server.on('message', function(msg, info) {
-    logRequest(msg, info);
 });
 
 server.bind(PORT);
