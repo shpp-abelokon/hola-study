@@ -9,3 +9,6 @@
 <p>To run server please type nodejs tcp/client.js in terminal.</p>
 <h1>UDP Client & Server</h1>
 <p>The files are in the on "udp" folder</p>
+<p>To run server please type nodejs udp/server.js in terminal.</p>
+<p>To run server please type nodejs udp/client.js in terminal.</p>
+
