@@ -45,7 +45,11 @@ function $(param) {
     var obj = filterFun();
     console.log(obj);
     obj.html = function() {
+      if(arguments.length == 0 ){
         return this.innerHTML;
+      } else {
+        this.innerHTML=arguments[0];
+      }
     }
     return obj;
 }
