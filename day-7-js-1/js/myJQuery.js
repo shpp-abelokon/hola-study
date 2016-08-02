@@ -12,10 +12,12 @@ function $(param){
     console.log(this.length);
         if(arguments.length == 0 ){
           for (var i = 0; i < this.length; i++) {
-	    return obj[i].innerHTML;
+	    return this[i].innerHTML;
           }
         } else {
-          this.innerHTML=arguments[0];
+          for (var i = 0; i < this.length; i++) {
+            return this[i].innerHTML = arguments[0];
+          }
         }
   }
  
