@@ -1,3 +1,3 @@
 
-var test2 = $('#test').html();
+var test2 = $('div').html();
 console.log(test2);
