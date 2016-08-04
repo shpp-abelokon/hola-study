@@ -1,0 +1,12 @@
+{
+  "name": "test.node",
+  "version": "1.0.0",
+  "description": "site TodoList on Node server",
+  "dependencies": {
+    "express": "*",
+    "static-server": "*"
+  },
+  "keywords":["TodoList"],
+  "author": "Alex Belokon",
+  "license": "ISC"
+}
