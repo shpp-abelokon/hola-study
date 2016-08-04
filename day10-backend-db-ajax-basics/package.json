@@ -4,7 +4,11 @@
   "description": "site TodoList on Node server",
   "dependencies": {
     "express": "*",
-    "static-server": "*"
+    "static-server": "*",
+    "mysql": "*",
+    "body-parser": "*",
+    "node-static": "*",
+    "node-server": "*"
   },
   "keywords":["TodoList"],
   "author": "Alex Belokon",
