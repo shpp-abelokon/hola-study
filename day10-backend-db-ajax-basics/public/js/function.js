@@ -13,7 +13,8 @@
      if (event.keyCode == 13) {
          var text = $(this).val();
          console.log(text);
-         my_ajax(text, 'false');
+         var id_author = 1; //
+         my_ajax(id_author, text, 'false');
          addTask(text, 'false');
      }
  };
@@ -28,8 +29,9 @@
 
  /* ========================== AJAX =====================================================*/
 
- function my_ajax(text, status) {
+ function my_ajax(id_author, text, status) {
      var data = {};
+     data.id_author = id_author;
      data.text = text;
      data.status = status;
      console.log(JSON.stringify(data));
@@ -37,7 +39,7 @@
          type: 'POST',
          data: JSON.stringify(data),
          contentType: 'application/json',
-         url: 'http://localhost:3000/endpoint',
+         url: 'http://localhost:3000/',
          success: function(data) {
              console.log('success');
              console.log(JSON.stringify(data));
