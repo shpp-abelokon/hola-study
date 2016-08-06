@@ -5,7 +5,7 @@ var express = require('express'),
     mysql = require('mysql'),
     http = require('http').Server(app);
 
-function BD(myQuery) {
+function BD(myQuery,res) {
     var connection = mysql.createConnection({
         host: 'localhost',
         user: 'root',
@@ -15,17 +15,16 @@ function BD(myQuery) {
     connection.connect();
     console.log('Connection established');
 
-    var result = connection.query(myQuery, function(error,results,fields) {
+  connection.query(myQuery, function(error,results) {
         if (error) {
             console.log(error.message);
         } else {
             console.log('success');
-            return results;
+            res.send(JSON.stringify({'data': results.insertId}));
         }
     });
     connection.end();
     console.log('Connection close');
-    return result;
 }
 
 
@@ -35,12 +34,13 @@ app.use(bodyParser.json());
 app.post('/add/task:', function(req, res) {
     console.log("Сервер запрос принял"+req.body);
 
-    var currencyInsert = "INSERT INTO `todolist`.`task` (`ID`, `task_author`, `task_date`, `task_content`, `task_status`) VALUES ('', " + req.body.id_author + ", '', '" + req.body.task + "', " + req.body.status + ")";
+    var msqlReq = "INSERT INTO `todolist`.`task` (`ID`, `task_author`, `task_date`, `task_content`, `task_status`) VALUES ('', " + req.body.id_author + ", '', '" + req.body.task + "', " + req.body.status + ")";
 
-    var objBD = BD(currencyInsert);
-    console.log("ЭТО ответ от msql: "+objBD);
-    console.log('body: ' + JSON.stringify(req.body));
-    res.send(req.body);
+    /*var objBD =*/ BD(msqlReq,res);
+    // console.log("ЭТО ответ от msql: "+objBD);
+    // console.log('body: ' + JSON.stringify(req.body));
+    // res.send(req.body);
+      // res.send(JSON.stringify({'data': 44}));
 });
 
 
@@ -51,9 +51,9 @@ app.post('/add/task:', function(req, res) {
 app.post('/del/id_task:', function(req, res) {
     console.log(req.body);
 
-    var currencyInsert = "DELETE FROM `task` WHERE (`ID`="+req.body.id_task+")";
+    var msqlReq = "DELETE FROM `task` WHERE (`ID`="+req.body.id_task+")";
 
-    var objBD = BD(currencyInsert);
+    var objBD = BD(msqlReq);
     console.log("ЭТО ответ от msql: "+objBD);
     console.log('body: ' + JSON.stringify(req.body));
     res.send(req.body);
@@ -70,9 +70,9 @@ app.post('/', function(req, res) {
 
     console.log(obj);
 
-    var currencyInsert = "INSERT INTO `todolist`.`task` (`ID`, `task_author`, `task_date`, `task_content`, `task_status`) VALUES ('', " + req.body.id_author + ", '', '" + req.body.text + "', " + req.body.status + ")";
+    var msqlReq = "INSERT INTO `todolist`.`task` (`ID`, `task_author`, `task_date`, `task_content`, `task_status`) VALUES ('', " + req.body.id_author + ", '', '" + req.body.text + "', " + req.body.status + ")";
 
-    var objBD = BD(currencyInsert);
+    var objBD = BD(msqlReq);
     // // objBD.query('какой то запрос?', obj, function(error) {
     // objBD.query(currencyInsert, function(error) {
     //      if (error) {
@@ -97,4 +97,4 @@ app.get('/', function(req, res) {
 
 http.listen(PORT, function() {
     console.log('listening on PORT: ' + PORT);
-})
+});

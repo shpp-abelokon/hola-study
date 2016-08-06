@@ -54,7 +54,7 @@ var model = {
         url: 'http://localhost:3000/'+data.urlPost,
         success: function(data) {
             console.log('success');
-            console.log(JSON.stringify(data));
+            console.log(data);
         }
     });
   },onDeleteClick: function() {
