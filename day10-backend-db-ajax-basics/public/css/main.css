@@ -1,15 +1,157 @@
-body{}
-  
-h1{
-  text-align: center;
+h1 {
+    text-align: center;
 }
-
+.addTask {
+    padding: 20px 25px;
+}
 .list {
-  margin: 25px 0;
+    margin: 25px 0;
 }
 .content_list {
-  padding: 20px 25px;
-  -webkit-box-shadow: 2px 11px 16px -6px rgba(0,0,0,0.75);
-  -moz-box-shadow: 2px 11px 16px -6px rgba(0,0,0,0.75);
-  box-shadow: 2px 11px 16px -6px rgba(0,0,0,0.75);
+    padding: 20px 25px;
+    -webkit-box-shadow: 2px 11px 16px -6px rgba(0, 0, 0, 0.75);
+    -moz-box-shadow: 2px 11px 16px -6px rgba(0, 0, 0, 0.75);
+    box-shadow: 2px 11px 16px -6px rgba(0, 0, 0, 0.75);
+}
+.tasks_filter {
+    text-align: center;
+}
+.navbar-right input {
+    margin: 12px;
+    padding-left: 10px;
+}
+.navbar-right .btn {
+    margin: 6px;
+}
+#signUp, #SignIn {
+    cursor: pointer;
+}
+
+/* modal window */
+#modal_form {
+    width: 450px;
+    height: 300px;
+    border-radius: 5px;
+    border: 3px #000 solid;
+    background: #fff;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -225px;
+    display: none;
+    opacity: 0;
+    z-index: 5;
+    padding: 20px 10px;
+}
+
+/* button to close the modal window */
+#modal_form #modal_close {
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    display: block;
+}
+
+/* modal window */
+#modal_form_SignUp, #modal_form_SignIn {
+    width: 450px;
+    height: 400px;
+    border-radius: 5px;
+    border: 3px #000 solid;
+    background: #fff;
+    position: fixed;
+    top: 45%;
+    left: 50%;
+    margin-top: -150px;
+    margin-left: -225px;
+    display: none;
+    opacity: 0;
+    z-index: 5;
+    padding: 20px 10px;
+}
+
+/* button to close the modal window */
+#modal_form_SignUp #modal_close_SignUp, #modal_form_SignIn #modal_close_SignIn {
+    width: 21px;
+    height: 21px;
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    cursor: pointer;
+    display: block;
+}
+
+/* the substrate */
+#overlay {
+    z-index: 4;
+    position: fixed;
+    background-color: #000;
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    display: none;
+}
+#overlay2 {
+    z-index: 4;
+    position: fixed;
+    background-color: #000;
+    opacity: 0.8;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    cursor: pointer;
+    display: none;
+}
+.thankyou {
+    padding: 20px 0px;
+    text-align: center;
+}
+.thankyou p {
+    margin: 0px 0px 10px 0px;
+    padding: 0px;
+    font: normal 24px 'Roboto Condensed', sans-serif;
+    color: #3e4a5d;
+}
+.thankyou p span {
+    font: normal 30px 'Roboto Condensed', sans-serif;
+    color: #e62d2d;
+}
+.thankyou p.security {
+    margin: 0px auto;
+    padding: 10px 0px 0px 30px;
+    background: url(../img/security.png) no-repeat 0 15px;
+    font: normal 13px 'PT Sans', sans-serif;
+    color: #3e4a5d;
+    text-align: left;
+    width: 245px;
+}
+#form_SignIn input, #form_SignUp input {
+    margin: 0px 17px 10px;
+    padding: 0px 0px 0px 50px;
+    height: 45px;
+    border: 1px solid #c1c1c0;
+    width: 300px;
+}
+#form_SignIn input.password_SignIn, #form_SignUp input.password_SignUp {
+    background: url(../img/pass.png) no-repeat #fff;
+}
+#form_SignUp input.email_SignUp {
+    background: url(../img/email.png) no-repeat #fff;
+}
+#form_SignIn input.name_SignIn, #form_SignUp input.name_SignUp {
+    background: url(../img/name.jpg) no-repeat #fff;
+}
+#form_btn_SignUp, #form_btn_SignIn {
+    margin: 10px;
+    width: 300px;
+    height: 45px;
+    font-size: 22px;
 }

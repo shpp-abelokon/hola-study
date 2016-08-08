@@ -6,7 +6,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Bootstrap 101 Template</title>
+    <title>Hello, Todo list!</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -21,61 +21,140 @@
 </head>
 
 <body>
+    <section>
+        <nav class="navbar navbar-default">
+            <div class="container">
+                <!-- Brand and toggle get grouped for better mobile display -->
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">TodoList</a>
+                </div>
 
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class="active"><a href="#">Getting started<span class="sr-only">(current)</span></a></li>
+                    </ul>
+
+                    <ul class="nav navbar-nav navbar-right">
+                        <li id="SignIn"><a>Sign in</a></li>
+                        <li id="signUp"><a>Sign Up</a></li>
+                    </ul>
+                </div>
+                <!-- /.navbar-collapse -->
+            </div>
+            <!-- /.container-fluid -->
+        </nav>
+    </section>
 
     <section>
         <!-- Stack the columns on mobile by making one full-width and the other half-width -->
         <div class="container">
             <h1>Hello, Todo list!</h1>
             <div class="row">
-                <div class="col-md-12 list">
-                    <div class="col-md-offset-2 col-md-1">
-                        <input type="checkbox">
-                    </div>
-                    <div class="col-md-7">
-                        <input type="text" id="input_text" class="form-control" placeholder="Text input">
+                <div class="col-md-offset-2 col-md-8 addTask">
+                    <div class="col-md-12">
+                        <div class="row">
+                            <div class="col-md-1">
+                                <input type="checkbox">
+                            </div>
+                            <div class="col-md-11">
+                                <input type="text" id="input_text" class="form-control" placeholder="Text input">
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <br>
                 <div class="col-md-offset-2 col-md-8 content_list">
-                    <div class="task">
-                        <div class="row">
-                            <div class="col-md-1">
-                                <input type="checkbox" value="">
-                            </div>
-                            <div class="col-md-10">
-                                <p class="bg-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, sapiente architecto voluptate tempore harum pariatur doloribus illo iste eaque alias aliquam unde odit molestiae eos distinctio, rem. Distinctio, commodi unde?</p>
-                            </div>
-                            <div class="col-md-1">
-                                <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                            </div>
-                        </div>
+                    <div class="col-md-12 list">
                     </div>
-                    <div class="task">
-                        <div class="row">
-                            <div class="col-md-1">
-                                <input type="checkbox" value="">
-                            </div>
-                            <div class="col-md-10">
-                                <p class="bg-info">Lorem ipsum dolor sit amet, consectetur adipisicing elit. A, sapiente architecto voluptate tempore harum pariatur doloribus illo iste eaque alias aliquam unde odit molestiae eos distinctio, rem. Distinctio, commodi unde?</p>
-                            </div>
-                            <div class="col-md-1">
-                                <button type="button" class="close" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+                    <div class="col-md-12">
+                        <hr>
+                    </div>
+                    <div id="foot" class="navigation">
+                    </div>
+                    <div class="action">
+                        <div class="col-md-3">Remain tasks:</div>
+                        <div class="col-md-5 tasks_filter">
+                            <div class="btn-group" role="group" aria-label="...">
+                                <button type="button" class="btn btn-default">All</button>
+                                <button type="button" class="btn btn-default">Active</button>
+                                <button type="button" class="btn btn-default">Complete</button>
                             </div>
                         </div>
+                        <div class="col-md-4">Remove completed tasks</div>
                     </div>
                 </div>
-                <hr>
+
             </div>
         </div>
     </section>
 
+    <div id="modal_form">
+        <!-- Сaмo oкнo -->
+        <span id="modal_close">X</span>
+        <!-- Кнoпкa зaкрыть -->
+        <div class="thankyou">
+            <p><span>Дякуємо!</span>
+                <br>
+                <br> Ми прийняли Ваше замовлення,
+                <br> і менеджер зв'яжеться з вами
+                <br> протягом дня.</p>
+            <p class="security">Ваші контактні дані в безпеці
+                <br> і не будуть передані третім особам.</p>
+        </div>
+    </div>
+    <div id="overlay"></div>
+    <!-- Пoдлoжкa -->
+    <div id="modal_form_SignUp">
+        <!-- Сaмo oкнo -->
+        <span id="modal_close_SignUp">X</span>
+        <!-- Кнoпкa зaкрыть -->
+        <div class="thankyou">
+            <p><span>Create your personal account</span></p>
+
+            <form id="form_SignUp">
+                <input type="text" name="name_SignUp" class="name_SignUp" placeholder="Username" required>
+                <input type="email" name="email_SignUp" class="email_SignUp" placeholder="Email Address" required>
+                <input type="password" name="password" class="password_SignUp" placeholder="Password" required>
+            </form>
+            <button type="button" id="form_btn_SignUp" class="btn btn-success">Create an account</button>
+            <p class="security">Your contact information is safe
+                <br> and will not be disclosed to third parties.</p>
+        </div>
+    </div>
+    <div id="overlay2"></div>
+    <!-- Пoдлoжкa -->
+
+    <div id="modal_form_SignIn">
+        <!-- Сaмo oкнo -->
+        <span id="modal_close_SignIn">X</span>
+        <!-- Кнoпкa зaкрыть -->
+        <div class="thankyou">
+            <p><span>Sign in to Todo List</span></p>
+
+            <form id="form_SignIn">
+                <input id="login" type="text" name="name_SignIn" class="name_SignIn" placeholder="Username" required>
+                <input id="password" type="password" name="password" class="password_SignIn" placeholder="Password" required>
+            </form>
+            <p class="error"></p>
+            <button type="button" id="form_btn_SignIn" class="btn btn-success">Sign In</button>
+            <p class="security">Your contact information is safe
+                <br> and will not be disclosed to third parties.</p>
+        </div>
+    </div>
 
     <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+    <!-- <script src="jquery/dist/jquery.min.js" charset="utf-8"></script> -->
     <!-- Include all compiled plugins (below), or include individual files as needed -->
     <script src="js/bootstrap.min.js"></script>
-    <script src="js/function.js"></script>
+    <script src="js/main.js"></script>
 </body>
 
 </html>
