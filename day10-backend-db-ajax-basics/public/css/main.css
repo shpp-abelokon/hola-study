@@ -28,6 +28,7 @@ h1 {
 }
 
 /* modal window */
+
 #modal_form {
     width: 450px;
     height: 300px;
@@ -46,6 +47,7 @@ h1 {
 }
 
 /* button to close the modal window */
+
 #modal_form #modal_close {
     width: 21px;
     height: 21px;
@@ -57,6 +59,7 @@ h1 {
 }
 
 /* modal window */
+
 #modal_form_SignUp, #modal_form_SignIn {
     width: 450px;
     height: 400px;
@@ -75,6 +78,7 @@ h1 {
 }
 
 /* button to close the modal window */
+
 #modal_form_SignUp #modal_close_SignUp, #modal_form_SignIn #modal_close_SignIn {
     width: 21px;
     height: 21px;
@@ -86,6 +90,7 @@ h1 {
 }
 
 /* the substrate */
+
 #overlay {
     z-index: 4;
     position: fixed;

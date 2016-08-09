@@ -20,6 +20,7 @@ var view = {
         $('.task[id_task=' + taskObj.id_task + '] input.status').click(controller.pressClickCheckBoxStatus);
     },
     downloadTasks: function(Obj, resMysql) {
+        $('.list').empty();
         for (var i in resMysql.data) {
             var taskObj = {
                 task: resMysql.data[i].task_content,
@@ -78,6 +79,24 @@ var view = {
                     $('#overlay2').fadeOut(450);
                 }
             );
+    },
+    checkLoginSignUp: function(obj, resMysql) {
+        if (resMysql.login == '0') {
+            $('.name_SignUp').css('border', '1px solid red');
+            // break;
+        } else {
+            $('.name_SignUp').css('border', '1px solid lightgreen');
+            if (resMysql.mail == '0') {
+                $('.email_SignUp').css('border', '1px solid red');
+            } else {
+                $('.email_SignUp').css('border', '1px solid lightgreen');
+                if (resMysql.pass == '0') {
+                    $('.password_SignUp').css('border', '1px solid red');
+                } else {
+                    $('.password_SignUp').css('border', '1px solid lightgreen');
+                }
+            }
+        }
     }
 };
 
@@ -92,15 +111,17 @@ var model = {
 
     addTaskFromDataBase: function(event) {
         var text = $(event).val();
-        var urlPost = "add/task:";
-        var data = {
-            id_author: model.id_author,
-            id_task: '',
-            task: text,
-            status: false,
-            urlPost: urlPost
-        };
-        model.my_ajax(data, view.addTask);
+        if (text.length > 0) {
+            var urlPost = "add/task:";
+            var data = {
+                id_author: model.id_author,
+                id_task: '',
+                task: text,
+                status: false,
+                urlPost: urlPost
+            };
+            model.my_ajax(data, view.addTask);
+        }
     },
     deleteTaskFromDataBase: function(event) {
         var id_task = $(event).closest(".task").attr("id_task");
@@ -156,12 +177,13 @@ var model = {
             password: password,
             urlPost: urlPost
         };
+        console.log("авторизация " + JSON.stringify(data));
         model.my_ajax(data, function(Obj, resMysql) {
-            if ((resMysql.data.length) == '0') {
+            if ((resMysql.result) == 0) {
                 $(".thankyou .error").text("не верный логин или пароль");
             } else {
                 $(".thankyou .error").text("");
-                var id_author = resMysql.data[0].ID;
+                var id_author = resMysql.id_user;
                 model.addAllUserTasksFromDataBase(id_author);
                 view.hideWindowsSignIn();
             }
@@ -174,6 +196,27 @@ var model = {
             urlPost: urlPost
         };
         model.my_ajax(data, view.downloadTasks);
+    },
+    registerUserInDataBase: function(event) {
+        var user_login = $('.name_SignUp').val();
+        var user_email = $('.email_SignUp').val();
+        var user_pass = $('.password_SignUp').val();
+        var data = {
+            user_login: user_login,
+            urlPost: "checkLogin:",
+            user_email: user_email,
+            user_pass: user_pass
+        };
+        model.my_ajax(data, view.checkLoginSignUp);
+
+        // console.log("One: "+one);
+        //
+        // console.log(user_login);
+    },
+    addNewUser: function(obj, access) {
+        if (access.login && access.mail) {
+
+        }
     }
 };
 /* ------------------------------- end model ---------------------------------*/
@@ -202,6 +245,10 @@ var controller = {
     pressClickBtnSingIn: function(event) {
         var _this = $(this);
         model.authorizationFromDataBase(_this);
+    },
+    pressClickBtnSingUp: function(event) {
+        var _this = $(this);
+        model.registerUserInDataBase(_this);
     }
 
 };
@@ -229,7 +276,7 @@ var controller = {
         event: function() {
             $(document).ready(function() {
 
-                /* Delete task in list if click on close*/
+                /* delete task in list if click on close*/
                 $('.close').click(controller.pressClickCloseTask);
                 /* Add task in list click on Enter */
                 $('#input_text').keydown(controller.pressEnterKey);
@@ -245,6 +292,8 @@ var controller = {
                 $('#SignIn').click(view.showWindowsSignIn);
                 /* Close modal windows Sign Ip*/
                 $('#modal_close_SignIn, #overlay2').click(view.hideWindowsSignIn);
+
+                $('#form_btn_SignUp').click(controller.pressClickBtnSingUp);
 
             });
         }
