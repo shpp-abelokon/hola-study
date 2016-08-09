@@ -152,7 +152,7 @@ var model = {
     my_ajax: function(data, callback) {
         $.ajax({
             type: 'POST',
-            url: 'http://localhost:3000/' + data.urlPost,
+            url: '/' + data.urlPost,
             contentType: 'application/json',
             dataType: 'json',
             data: JSON.stringify(data),
