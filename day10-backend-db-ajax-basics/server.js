@@ -1,4 +1,4 @@
-var PORT = 3000;
+var PORT = 3001;
 var express = require('express'),
     app = express(),
     bodyParser = require('body-parser'),
@@ -9,9 +9,9 @@ var express = require('express'),
 function BD(myQuery, res) {
     var connection = mysql.createConnection({
         host: 'localhost',
-        user: 'root',
-        password: 'root',
-        database: 'todolist'
+        user: 'ab',
+        password: 'mypass1q2w',
+        database: 'ab_todolist'
     });
 
     connection.connect();
@@ -39,15 +39,14 @@ app.post('/checkLogin:', function(req, res) {
     var msqlReq = 'SELECT * FROM users WHERE user_login="' + req.body.user_login + '"';
     var connection = mysql.createConnection({
         host: 'localhost',
-        user: 'root',
-        password: 'root',
-        database: 'todolist'
+        user: 'ab',
+        password: 'mypass1q2w',
+        database: 'ab_todolist'
     });
     connection.connect();
     console.log('Connection established');
 
     connection.query(msqlReq, function(error, results) {
-        console.log("Просто вывод " + JSON.stringify(results.length));
         var access = {
             login: '',
             pass: '',
@@ -68,12 +67,13 @@ app.post('/checkLogin:', function(req, res) {
                             access.mail = 1;
                             if (req.body.user_pass.length > 3) {
                                 access.pass = 1;
-                                msqlReq = "INSERT INTO `todolist`.`users` (`ID`, `user_login`, `user_pass`, `user_email`,  `user_status`) VALUES ('','" + req.body.user_login + "','" + req.body.user_pass + "','" + req.body.user_email + "','1')";
+                                msqlReq = "INSERT INTO `ab_todolist`.`users` (`user_login`, `user_pass`, `user_email`) VALUES ('" + req.body.user_login + "','" + req.body.user_pass + "','" + req.body.user_email + "')";
                                 connection.query(msqlReq, function(error, results) {
                                     if (error) {
                                         console.log(error.message);
                                     } else {
                                         res.send(JSON.stringify(access));
+                                          connection.end();
                                     }
                                 });
                             } else {
@@ -96,21 +96,43 @@ app.post('/checkLogin:', function(req, res) {
     console.log('Connection close');
 });
 
+/*------------------------------ removeCompletedTasks--------------------------*/
+app.post('/removeCompletedTasks:', function(req, res) {
+    var msqlReq = 'DELETE  FROM task WHERE task_author="' + req.body.id_author + '" AND task_status="' + req.body.status + '"';
+    BD(msqlReq, res);
+});
+
 /*------------------------------ selectAllUserTasks --------------------------*/
 app.post('/selectAllUserTasks:', function(req, res) {
     var msqlReq = 'SELECT * FROM task WHERE task_author="' + req.body.id_author + '"';
     BD(msqlReq, res);
 });
 
+/*------------------------------ updateStatusFilterUser ------------------------------------*/
+app.post('/updateStatusFilterUser:', function(req, res) {
+    var msqlReq = "UPDATE users SET user_filter='" + req.body.filter + "' WHERE ID='" + req.body.id_author + "'";
+    BD(msqlReq, res);
+});
+
+
+/*------------------------------ select the tasks for the filter --------------------------------*/
+app.post('/filterTasks:', function(req, res) {
+    console.log("Меняем фильтр: " + req.body.filter);
+    var status = req.body.filter == 'active' ? 0 : 1;
+
+    var msqlReq = 'SELECT * FROM task WHERE task_author="' + req.body.id_author + '" AND task_status="' + status + '"';
+    BD(msqlReq, res);
+});
+
+
 /*------------------------------ authorization -------------------------------*/
 app.post('/authorization:', function(req, res) {
-    // var msqlReq = 'SELECT * FROM users WHERE user_login="' + req.body.login + '" AND user_pass="' + req.body.password + '"';
     var msqlReq = 'SELECT * FROM users WHERE user_login="' + req.body.login + '"';
     var connection = mysql.createConnection({
         host: 'localhost',
-        user: 'root',
-        password: 'root',
-        database: 'todolist'
+        user: 'ab',
+        password: 'mypass1q2w',
+        database: 'ab_todolist'
     });
     connection.connect();
     console.log('Connection established');
@@ -125,6 +147,7 @@ app.post('/authorization:', function(req, res) {
             if (results.length == 1 && results[0].user_pass == req.body.password) {
                 access.result = 1;
                 access.id_user = results[0].ID;
+                access.user_filter = results[0].user_filter;
             } else {
                 access.result = 0;
             }
@@ -135,7 +158,7 @@ app.post('/authorization:', function(req, res) {
 
 /*------------------------------ Add/task ------------------------------------*/
 app.post('/add/task:', function(req, res) {
-    var msqlReq = "INSERT INTO `todolist`.`task` (`ID`, `task_author`, `task_date`, `task_content`, `task_status`) VALUES ('', " + req.body.id_author + ", '', '" + req.body.task + "', " + req.body.status + ")";
+    var msqlReq = "INSERT INTO `ab_todolist`.`task` (`task_author`, `task_content`, `task_status`) VALUES (" + req.body.id_author + ", '" + req.body.task + "', " + req.body.status + ")";
     BD(msqlReq, res);
 });
 
@@ -146,15 +169,25 @@ app.post('/del/id_task:', function(req, res) {
 });
 
 /*------------------------------ update/task ---------------------------------*/
+app.post('/updateTaskText:', function(req, res) {
+    var msqlReq = "UPDATE task SET task_content='" + req.body.task_content + "' WHERE ID='" + req.body.id_task + "'";
+    BD(msqlReq, res);
+});
+/*------------------------------ update/task ---------------------------------*/
 app.post('/update/task:', function(req, res) {
     var msqlReq = "UPDATE task SET task_status=" + (JSON.stringify(req.body.status)) + " WHERE ID='" + req.body.id_task + "'";
     BD(msqlReq, res);
 });
 
-app.get('/', function(req, res) {
-    app.use('/', express.static(__dirname + '/public'));
-    res.sendfile(__dirname + '/public/index.html');
-});
+//app.get('/abelokon/day10-backend-db-ajax-basics/', function(req, res) {
+//    app.use('/abelokon/day10-backend-db-ajax-basics/', express.static(__dirname + '/public'));
+//    res.sendfile(__dirname + '/public/index.html');
+//});
+
+ app.get('/', function(req, res) {
+     app.use('/', express.static(__dirname + '/public'));
+     res.sendfile(__dirname + '/public/index.html');
+ });
 
 http.listen(PORT, function() {
     console.log('listening on PORT: ' + PORT);

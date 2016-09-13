@@ -10,6 +10,7 @@
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/font-awesome.min.css" rel="stylesheet">
     <link rel="stylesheet" href="css/main.css">
 
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
@@ -38,11 +39,12 @@
                 <!-- Collect the nav links, forms, and other content for toggling -->
                 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a href="#">Getting started<span class="sr-only">(current)</span></a></li>
+                        <li class="active"><a href="#">Getting started: admin admin<span class="sr-only">(current)</span></a></li>
                     </ul>
 
                     <ul class="nav navbar-nav navbar-right">
-                        <li id="SignIn"><a>Sign in</a></li>
+                        <li id="user_name"><a><span>Admin</span><i class="fa fa-sign-out" aria-hidden="true"></i></a></li>
+                        <li id="SignIn"><a>Sign In</a></li>
                         <li id="signUp"><a>Sign Up</a></li>
                     </ul>
                 </div>
@@ -55,42 +57,45 @@
     <section>
         <!-- Stack the columns on mobile by making one full-width and the other half-width -->
         <div class="container">
-            <h1>Hello, Todo list!</h1>
             <div class="row">
-                <div class="col-md-offset-2 col-md-8 addTask">
-                    <div class="col-md-12">
-                        <div class="row">
-                            <div class="col-md-1">
-                                <input type="checkbox">
+                <div class="col-md-offset-2 col-md-8 bg_content">
+                    <h1>Please log into your account or register</h1>
+                    <div class="col-md-12 addTask">
+                        <div class="col-md-12">
+                            <div class="row">
+                                <div class="col-md-1">
+                                    <input class="complete_all_tasks" type="checkbox">
+                                </div>
+                                <div class="col-md-11">
+                                    <input type="text" id="input_text" class="form-control" placeholder="Text input">
+                                </div>
                             </div>
-                            <div class="col-md-11">
-                                <input type="text" id="input_text" class="form-control" placeholder="Text input">
+                        </div>
+                    </div>
+                    <br>
+                    <div class="col-md-12 content_list">
+                        <div class="col-md-12 list">
+                        </div>
+                        <div class="col-md-12">
+                            <hr>
+                        </div>
+                        <div id="foot" class="navigation">
+                        </div>
+                        <div class="action">
+                            <div class="col-md-3 counterOfActiveTasks">Remain tasks:</div>
+                            <div class="col-md-5 tasks_filter">
+                                <div class="btn-group" role="group" aria-label="...">
+                                    <button type="button" class="btn btn-default filterAll">All</button>
+                                    <button type="button" class="btn btn-default filterActive">Active</button>
+                                    <button type="button" class="btn btn-default filterComplite">Complete</button>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="button" class="btn btn-link removeCompletedTasks">Remove completed tasks</button>
                             </div>
                         </div>
                     </div>
                 </div>
-                <br>
-                <div class="col-md-offset-2 col-md-8 content_list">
-                    <div class="col-md-12 list">
-                    </div>
-                    <div class="col-md-12">
-                        <hr>
-                    </div>
-                    <div id="foot" class="navigation">
-                    </div>
-                    <div class="action">
-                        <div class="col-md-3">Remain tasks:</div>
-                        <div class="col-md-5 tasks_filter">
-                            <div class="btn-group" role="group" aria-label="...">
-                                <button type="button" class="btn btn-default">All</button>
-                                <button type="button" class="btn btn-default">Active</button>
-                                <button type="button" class="btn btn-default">Complete</button>
-                            </div>
-                        </div>
-                        <div class="col-md-4">Remove completed tasks</div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </section>
@@ -119,9 +124,18 @@
             <p><span>Create your personal account</span></p>
 
             <form id="form_SignUp">
-                <input type="text" name="name_SignUp" class="name_SignUp" placeholder="Username" required>
-                <input type="email" name="email_SignUp" class="email_SignUp" placeholder="Email Address" required>
-                <input type="password" name="password" class="password_SignUp" placeholder="Password" required>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                    <input type="text" class="form-control name_SignUp" placeholder="Username" name="name_SignUp">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-at" aria-hidden="true"></i></div>
+                    <input type="email" name="email_SignUp" class="form-control email_SignUp" placeholder="Email Address">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                    <input type="password" name="password" class="form-control password_SignUp" placeholder="Password">
+                </div>
             </form>
             <button type="button" id="form_btn_SignUp" class="btn btn-success">Create an account</button>
             <p class="security">Your contact information is safe
@@ -139,8 +153,14 @@
             <p><span>Sign in to Todo List</span></p>
 
             <form id="form_SignIn">
-                <input id="login" type="text" name="name_SignIn" class="name_SignIn" placeholder="Username" required>
-                <input id="password" type="password" name="password" class="password_SignIn" placeholder="Password" required>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-user" aria-hidden="true"></i></div>
+                    <input type="text" class="form-control name_SignIn" id="login" placeholder="Username" name="name_SignIn">
+                </div>
+                <div class="input-group">
+                    <div class="input-group-addon"><i class="fa fa-lock" aria-hidden="true"></i></div>
+                    <input id="password" type="text" name="password" class="form-control password_SignIn" placeholder="Password">
+                </div>
             </form>
             <p class="error"></p>
             <button type="button" id="form_btn_SignIn" class="btn btn-success">Sign In</button>

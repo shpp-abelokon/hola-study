@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Chat on socket.io+express</title>
+    <link rel="stylesheet" href="/css/libs.min.css">
+    <link rel="stylesheet" href="/css/main.css">
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-12">
+          <h1>Chat on Socket.io</h1>
+          <br>
+          <div class="col-md-12" id="chat">
+            <div class="messages" id="messages"></div>
+          </div>
+          <div class="col-md-8 panel">
+             <span class="nick"></span>
+            <input type="text" class="form-control" placeholder="Text input" name="message_text" id="message_text">
+          </div>
+          <div class="col-md-4">
+            <button class="btn btn-default" type="buttom" id="message_btn">Button</button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <script src="libs/jquery/dist/jquery.min.js" charset="utf-8"></script>
+    <script src="http://cdn.socket.io/socket.io-1.4.0.js"></script>
+    <script src="js/chat.js" charset="utf-8"></script>
+  </body>
+</html>

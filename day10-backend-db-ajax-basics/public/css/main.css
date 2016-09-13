@@ -7,6 +7,29 @@ h1 {
 .list {
     margin: 25px 0;
 }
+.task{
+      padding: 10px 0;
+      -webkit-transition: opacity 150ms ease-in;
+    transition: opacity 150ms ease-in;
+}
+.checkbox_task{
+  margin-top: 5px;
+}
+.checkbox_task input{
+  cursor: pointer;
+}
+.task_text{
+  border-bottom: 1px solid #f0f0f0;
+  padding: 5px;
+  cursor: text;
+}
+.task_text i{
+  float: right;
+  display: none;
+}
+.task_text_editor{
+  display: none;
+}
 .content_list {
     padding: 20px 25px;
     -webkit-box-shadow: 2px 11px 16px -6px rgba(0, 0, 0, 0.75);
@@ -23,10 +46,18 @@ h1 {
 .navbar-right .btn {
     margin: 6px;
 }
-#signUp, #SignIn {
+.task .close {
+  display: none;
+}
+#signUp, #SignIn, #user_name i{
     cursor: pointer;
 }
-
+#user_name{
+  display: none;
+}
+#user_name i{
+  padding-left: 10px;
+}
 /* modal window */
 
 #modal_form {
@@ -126,8 +157,10 @@ h1 {
     color: #3e4a5d;
 }
 .thankyou p span {
-    font: normal 30px 'Roboto Condensed', sans-serif;
-    color: #e62d2d;
+  font: normal 16px 'Roboto Condensed', sans-serif;
+  color: #333;
+  text-transform: uppercase;
+  font-weight: bold;
 }
 .thankyou p.security {
     margin: 0px auto;
@@ -138,14 +171,23 @@ h1 {
     text-align: left;
     width: 245px;
 }
+#form_SignIn {
+  margin-top: 40px;
+}
+#form_SignIn .input-group, #form_SignUp .input-group{
+  margin: 10px 0;
+  margin-left: 60px;
+      height: 45px;
+}
 #form_SignIn input, #form_SignUp input {
-    margin: 0px 17px 10px;
+      height: 45px;
+    /*margin: 0px 17px 10px;
     padding: 0px 0px 0px 50px;
     height: 45px;
-    border: 1px solid #c1c1c0;
-    width: 300px;
+    border: 1px solid #c1c1c0;*/
+    width: 270px;
 }
-#form_SignIn input.password_SignIn, #form_SignUp input.password_SignUp {
+/*#form_SignIn input.password_SignIn, #form_SignUp input.password_SignUp {
     background: url(../img/pass.png) no-repeat #fff;
 }
 #form_SignUp input.email_SignUp {
@@ -153,7 +195,7 @@ h1 {
 }
 #form_SignIn input.name_SignIn, #form_SignUp input.name_SignUp {
     background: url(../img/name.jpg) no-repeat #fff;
-}
+}*/
 #form_btn_SignUp, #form_btn_SignIn {
     margin: 10px;
     width: 300px;

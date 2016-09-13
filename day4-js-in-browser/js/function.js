@@ -30,11 +30,6 @@ $(document).ready(function() {
   /* Delete task in list if click on close*/
   $('.close span').click(onDeleteClick);
   /* Add task in list click on Enter */
-  $('#input_text').focus(function(){
-    console.log("Ура");
-    $('#input_text').keydown(addTaskClickEnter);
-  });
-
-
+  $('#input_text').keydown(addTaskClickEnter);
 
 });
